@@ -1,16 +1,21 @@
 package com.company;
 
-import creatures.Animal;
+import creatures.FarmAnimal;
+import creatures.Pet;
 import device.Car;
 import device.Phone;
+
+import java.util.List;
 
 public class Person {
   public String name;
   public String surname;
 
-  private Animal pet;
+  private Pet pet;
   private Car car;
   private Phone phone;
+
+  private List<FarmAnimal> farmAnimalList;
 
   private Double salary;
   public Double cash;
@@ -22,11 +27,11 @@ public class Person {
     this.cash = 0.0;
   }
 
-  public Animal getPet() {
+  public Pet getPet() {
     return this.pet;
   }
 
-  public void setPet(Animal pet) {
+  public void setPet(Pet pet) {
     this.pet = pet;
   }
 
@@ -44,6 +49,22 @@ public class Person {
 
   public void setPhone(Phone phone) {
     this.phone = phone;
+  }
+
+  public List<FarmAnimal> getFarmAnimalList() {
+    return this.farmAnimalList;
+  }
+
+  public void setFarmAnimalList(List<FarmAnimal> farmAnimalList) {
+    this.farmAnimalList = farmAnimalList;
+  }
+
+  public void addFarmAnimal(FarmAnimal farmAnimal) {
+    this.farmAnimalList.add(farmAnimal);
+  }
+
+  public void removeFarmAnimal(FarmAnimal farmAnimal) {
+    this.farmAnimalList.removeIf(animal -> animal.getId() == farmAnimal.getId());
   }
 
   public Double getSalary() {

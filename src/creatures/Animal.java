@@ -3,16 +3,14 @@ package creatures;
 import com.company.Person;
 import com.company.Sellable;
 
-public class Animal implements Sellable {
+public abstract class Animal implements Sellable, Feedable {
   private final Long id;
-  public String name;
   final private String species;
   private Double weight;
   private boolean isAlive;
 
-  public Animal (Long id, String name, String species) {
+  public Animal (Long id, String species) {
     this.id = id;
-    this.name = name;
     this.species = species;
     this.isAlive = true;
 
@@ -29,9 +27,12 @@ public class Animal implements Sellable {
     }
   }
 
-  public Animal(Long id, String name, String species, Double weight) {
+  public Long getId () {
+    return this.id;
+  }
+
+  public Animal(Long id, String species, Double weight) {
     this.id = id;
-    this.name = name;
     this.species = species;
     this.weight = weight;
     this.isAlive = true;
@@ -42,6 +43,13 @@ public class Animal implements Sellable {
       this.weight += 1.00;
     else
       System.out.println("rip in spaghetti, never forgetti");
+  }
+
+  public void feed (Double weight) {
+    if(this.isAlive)
+      this.weight += weight;
+    else
+      System.out.println("look how they massacred my boy");
   }
 
   public void takeForWalk () {
@@ -56,26 +64,7 @@ public class Animal implements Sellable {
       System.out.println("your pet is dead");
   }
 
-  public void sell(Person seller, Person buyer, Double price) {
-    //error handling
-    if(seller.getPet().id != this.id) {
-      System.out.println("The car does not belong to the 'seller'.");
-      return;
-    }
-    if(buyer.cash < price) {
-      System.out.println("The buyer doesn't have enough cash.");
-      return;
-    }
-
-    buyer.cash += price;
-    seller.cash -= price;
-    buyer.setPet(null);
-    seller.setPet(this);
-
-    System.out.println(String.format("%s has been sold by %s to %s", this.toString(), seller.toString(), price.toString()));
-  }
-
   public String toString () {
-    return this.name;
+    return this.species;
   }
 }
