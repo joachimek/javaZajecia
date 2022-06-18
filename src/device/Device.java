@@ -1,11 +1,15 @@
 package device;
 
-public abstract class Device {
+import com.company.Sellable;
+
+public abstract class Device implements Sellable {
+  public final Long id;
   public final String brand;
   public final String model;
   public final Integer yearOfProduction;
 
-  protected Device(String brand, String model, Integer yearOfProduction) {
+  protected Device(Long id, String brand, String model, Integer yearOfProduction) {
+    this.id = id;
     this.brand = brand;
     this.model = model;
     this.yearOfProduction = yearOfProduction;

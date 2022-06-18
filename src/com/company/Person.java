@@ -2,32 +2,48 @@ package com.company;
 
 import creatures.Animal;
 import device.Car;
+import device.Phone;
 
 public class Person {
   public String name;
   public String surname;
 
-  public Animal pet;
+  private Animal pet;
   private Car car;
+  private Phone phone;
 
   private Double salary;
+  public Double cash;
+
+  public Person (String name, String surname) {
+    this.name = name;
+    this.surname = surname;
+    this.salary = 0.0;
+    this.cash = 0.0;
+  }
+
+  public Animal getPet() {
+    return this.pet;
+  }
+
+  public void setPet(Animal pet) {
+    this.pet = pet;
+  }
 
   public Car getCar() {
     return this.car;
   }
 
   public void setCar(Car car) {
-    if(car.value <= this.salary) {
-      System.out.println("The car was bought with cash.");
-      this.car = car;
-    }
-    else if(car.value <= 12*this.salary) {
-      System.out.println("The car was bought with mortgage");
-      this.car = car;
-    }
-    else {
-      System.out.println("Soz, you're to poor.");
-    }
+    this.car = car;
+  }
+
+  public Phone getPhone() {
+    return this.phone;
+  }
+
+  public void setPhone(Phone phone) {
+    this.phone = phone;
   }
 
   public Double getSalary() {

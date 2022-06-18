@@ -1,14 +1,17 @@
 package creatures;
 
-import java.io.Console;
+import com.company.Person;
+import com.company.Sellable;
 
-public class Animal {
+public class Animal implements Sellable {
+  private final Long id;
   public String name;
   final private String species;
   private Double weight;
   private boolean isAlive;
 
-  public Animal (String name, String species) {
+  public Animal (Long id, String name, String species) {
+    this.id = id;
     this.name = name;
     this.species = species;
     this.isAlive = true;
@@ -26,7 +29,8 @@ public class Animal {
     }
   }
 
-  public Animal (String name, String species, Double weight) {
+  public Animal(Long id, String name, String species, Double weight) {
+    this.id = id;
     this.name = name;
     this.species = species;
     this.weight = weight;
@@ -50,6 +54,25 @@ public class Animal {
     }
     else
       System.out.println("your pet is dead");
+  }
+
+  public void sell(Person seller, Person buyer, Double price) {
+    //error handling
+    if(seller.getPet().id != this.id) {
+      System.out.println("The car does not belong to the 'seller'.");
+      return;
+    }
+    if(buyer.cash < price) {
+      System.out.println("The buyer doesn't have enough cash.");
+      return;
+    }
+
+    buyer.cash += price;
+    seller.cash -= price;
+    buyer.setPet(null);
+    seller.setPet(this);
+
+    System.out.println(String.format("%s has been sold by %s to %s", this.toString(), seller.toString(), price.toString()));
   }
 
   public String toString () {
