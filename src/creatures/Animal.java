@@ -51,4 +51,8 @@ public class Animal {
     else
       System.out.println("your pet is dead");
   }
+
+  public String toString () {
+    return this.name;
+  }
 }

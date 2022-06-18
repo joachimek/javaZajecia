@@ -51,4 +51,8 @@ public class Person {
     else
       System.out.println("The salary value cannot be negative.");
   }
+
+  public String toString () {
+    return String.format("%s %s", this.name, this.surname);
+  }
 }

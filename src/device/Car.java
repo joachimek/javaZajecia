@@ -1,12 +1,13 @@
 package device;
 
-public class Car {
-  public final String brand;
-  public final String model;
+public class Car extends Device {
   public Double value;
 
-  public Car (String brand, String model) {
-    this.brand = brand;
-    this.model = model;
+  public Car (String brand, String model, Integer yearOfProduction) {
+    super(brand, model, yearOfProduction);
+  }
+
+  public void turnOn() {
+    System.out.println("The car has been turned on.");
   }
 }

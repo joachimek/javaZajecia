@@ -1,11 +1,12 @@
 package device;
 
-public class Phone {
-  public final String brand;
-  public final String model;
+public class Phone extends Device {
 
-  public Phone (String brand, String model) {
-    this.brand = brand;
-    this.model = model;
+  public Phone (String brand, String model, Integer yearOfProduction) {
+    super(brand, model, yearOfProduction);
+  }
+
+  public void turnOn() {
+    System.out.println("The phone has been turned on.");
   }
 }
