@@ -5,6 +5,7 @@ import creatures.Pet;
 import device.car.Car;
 import device.Phone;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Person {
@@ -13,6 +14,7 @@ public class Person {
 
   private Pet pet;
   private Car car;
+  private Car[] garage;
   private Phone phone;
 
   private List<FarmAnimal> farmAnimalList;
@@ -25,6 +27,15 @@ public class Person {
     this.surname = surname;
     this.salary = 0.0;
     this.cash = 0.0;
+    this.garage = new Car[1];
+  }
+
+  public Person(String name, String surname, Integer garageSize) {
+    this.name = name;
+    this.surname = surname;
+    this.salary = 0.0;
+    this.cash = 0.0;
+    this.garage = new Car[garageSize];
   }
 
   public Pet getPet() {
@@ -39,8 +50,36 @@ public class Person {
     return this.car;
   }
 
+  public Car getCar(Integer space) {
+    return this.garage[space];
+  }
+
   public void setCar(Car car) {
     this.car = car;
+  }
+
+  public void setCar(Car car, Integer space) {
+    this.garage[space] = car;
+  }
+
+  public Integer getCarsNumber() {
+    var count = 0;
+    for (Car car:this.garage)
+      if(car != null)
+        count ++;
+    return count;
+  }
+
+  public Double getCarsValue() {
+    Double value = 0.0;
+    for (Car car:this.garage)
+      if(car != null)
+        value += car.value;
+    return value;
+  }
+
+  public void sortCars() {
+    Arrays.sort(this.garage);
   }
 
   public Phone getPhone() {

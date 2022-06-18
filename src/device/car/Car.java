@@ -4,7 +4,6 @@ import com.company.Person;
 import device.Device;
 
 public abstract class Car extends Device {
-  public Double value;
 
   public Car (Long id, String brand, String model, Integer yearOfProduction) {
     super(id, brand, model, yearOfProduction);
@@ -34,4 +33,12 @@ public abstract class Car extends Device {
   }
 
   abstract void refuel();
+
+  public int compareTo(Car car)
+  {
+    if (this.yearOfProduction != car.yearOfProduction) {
+      return this.yearOfProduction - car.yearOfProduction;
+    }
+    return this.brand.compareTo(car.brand);
+  }
 }

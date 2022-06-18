@@ -7,6 +7,7 @@ public abstract class Device implements Sellable {
   public final String brand;
   public final String model;
   public final Integer yearOfProduction;
+  public Double value;
 
   protected Device(Long id, String brand, String model, Integer yearOfProduction) {
     this.id = id;
