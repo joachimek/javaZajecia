@@ -1,8 +1,9 @@
-package device;
+package device.car;
 
 import com.company.Person;
+import device.Device;
 
-public class Car extends Device {
+public abstract class Car extends Device {
   public Double value;
 
   public Car (Long id, String brand, String model, Integer yearOfProduction) {
@@ -31,4 +32,6 @@ public class Car extends Device {
 
     System.out.println(String.format("%s has been sold by %s to %s", this.toString(), seller.toString(), price.toString()));
   }
+
+  abstract void refuel();
 }

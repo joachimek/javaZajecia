@@ -2,7 +2,7 @@ package com.company;
 
 import creatures.FarmAnimal;
 import creatures.Pet;
-import device.Car;
+import device.car.Car;
 import device.Phone;
 
 import java.util.List;
