@@ -16,6 +16,8 @@ public class Main {
         janusz.addCar(new Diesel(1L, "volkswagen", "golf", 2009, 1500.0, janusz));
         janusz.addCar(new Diesel(1L, "honda", "civic", 2007, 1500.0, janusz));
 
+        janusz.sortCars();
+
         for(Car car : janusz.getCars()) {
             System.out.println(car.toString());
         }

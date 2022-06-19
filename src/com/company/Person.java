@@ -6,6 +6,7 @@ import device.car.Car;
 import device.Phone;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class Person {
@@ -115,7 +116,15 @@ public class Person {
   }
 
   public void sortCars() {
-    Arrays.sort(this.garage);
+    Arrays.sort(this.garage, new Comparator<Car>() {
+      @Override
+      public int compare(Car o1, Car o2) {
+        if (o1.yearOfProduction != o2.yearOfProduction) {
+          return o1.yearOfProduction - o2.yearOfProduction;
+        }
+        return o1.brand.compareTo(o2.brand);
+      }
+    });
   }
 
   public Phone getPhone() {
