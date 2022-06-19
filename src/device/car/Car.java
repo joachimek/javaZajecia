@@ -4,6 +4,7 @@ import com.company.Person;
 import com.company.Transaction;
 import device.Device;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,8 +13,11 @@ public abstract class Car extends Device {
 
   private List<Transaction> transactionHistory;
 
-  public Car (Long id, String brand, String model, Integer yearOfProduction) {
+  public Car (Long id, String brand, String model, Integer yearOfProduction, Double value, Person originalOwner) {
     super(id, brand, model, yearOfProduction);
+    this.value = value;
+    this.transactionHistory = new ArrayList<>();
+    transactionHistory.add(new Transaction(originalOwner, null, value));
   }
 
   public void turnOn() {
@@ -29,11 +33,11 @@ public abstract class Car extends Device {
   }
 
   protected Boolean isOwner(Person person) {
-    return getLastTransaction().getBuyer().getId() == person.getId();
+    return getLastTransaction().getBuyer().getId().equals(person.getId());
   }
 
   public Boolean didSell(Person seller, Person buyer) {
-    return transactionHistory.stream().filter(t -> t.getSeller().getId() == seller.getId()).collect(Collectors.toList()).size() != 0;
+    return transactionHistory.stream().anyMatch(t -> t.getSeller().getId().equals(seller.getId()));
   }
 
   public Integer countTransactions() {
@@ -42,7 +46,7 @@ public abstract class Car extends Device {
 
   public void sell(Person seller, Person buyer, Double price) {
     //error handling
-    if(!Arrays.asList(seller.getCars()).contains(this.id) || !isOwner(seller)) {
+    if(!seller.hasCar(this) || !this.isOwner(seller)) {
       System.out.println("The car does not belong to the 'seller'.");
       return;
     }
@@ -55,13 +59,13 @@ public abstract class Car extends Device {
       return;
     }
 
-    buyer.cash += price;
-    seller.cash -= price;
+    buyer.cash -= price;
+    seller.cash += price;
     buyer.removeCar(this);
     seller.addCar(this);
     addTransaction(new Transaction(buyer, seller, price));
 
-    System.out.println(String.format("%s has been sold by %s to %s", this.toString(), seller.toString(), price.toString()));
+    System.out.println(String.format("%s has been sold by %s to %s for %s", this.toString(), seller.toString(), buyer.toString(), price.toString()));
   }
 
   abstract void refuel();

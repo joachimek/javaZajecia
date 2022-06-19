@@ -94,6 +94,10 @@ public class Person {
     return false;
   }
 
+  public Boolean hasCar(Car car) {
+    return Arrays.stream(garage).anyMatch(c -> c.id.equals(car.id));
+  }
+
   public Integer getCarsNumber() {
     var count = 0;
     for (Car car:this.garage)
@@ -135,7 +139,7 @@ public class Person {
   }
 
   public void removeFarmAnimal(FarmAnimal farmAnimal) {
-    this.farmAnimalList.removeIf(animal -> animal.getId() == farmAnimal.getId());
+    this.farmAnimalList.removeIf(animal -> animal.getId().equals(farmAnimal.getId()));
   }
 
   public Double getSalary() {

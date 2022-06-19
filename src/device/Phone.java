@@ -4,7 +4,7 @@ import com.company.App;
 import com.company.Person;
 
 import java.net.URL;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Phone extends Device {
@@ -15,6 +15,7 @@ public class Phone extends Device {
 
   public Phone (Long id, String brand, String model, Integer yearOfProduction) {
     super(id, brand, model, yearOfProduction);
+    this.apps = new ArrayList<App>();
   }
 
   public void turnOn() {
@@ -70,6 +71,7 @@ public class Phone extends Device {
   public void installApp(Person buyer, App app) {
     if(app.price < buyer.cash) {
       System.out.println(String.format("Installed %s (version %s)", app.name, app.version));
+      buyer.cash -= app.price;
       this.apps.add(app);
       return;
     }
