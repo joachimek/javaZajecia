@@ -3,6 +3,8 @@ package device.car;
 import com.company.Person;
 import device.Device;
 
+import java.util.Arrays;
+
 public abstract class Car extends Device {
 
   public Car (Long id, String brand, String model, Integer yearOfProduction) {
@@ -15,8 +17,12 @@ public abstract class Car extends Device {
 
   public void sell(Person seller, Person buyer, Double price) {
     //error handling
-    if(seller.getCar().id != this.id) {
+    if(!Arrays.asList(seller.getCars()).contains(this.id)) {
       System.out.println("The car does not belong to the 'seller'.");
+      return;
+    }
+    if(!buyer.hasGarageSpace()) {
+      System.out.println("The buyer has no space for the car in his garage.");
       return;
     }
     if(buyer.cash < price) {
@@ -26,8 +32,8 @@ public abstract class Car extends Device {
 
     buyer.cash += price;
     seller.cash -= price;
-    buyer.setCar(null);
-    seller.setCar(this);
+    buyer.removeCar(this);
+    seller.addCar(this);
 
     System.out.println(String.format("%s has been sold by %s to %s", this.toString(), seller.toString(), price.toString()));
   }

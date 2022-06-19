@@ -6,6 +6,7 @@ import device.car.Car;
 import device.Phone;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class Person {
@@ -54,12 +55,46 @@ public class Person {
     return this.garage[space];
   }
 
+  public Car[] getCars() {
+    return this.garage;
+  }
+
   public void setCar(Car car) {
     this.car = car;
   }
 
-  public void setCar(Car car, Integer space) {
+  protected void setCar(Car car, Integer space) {
     this.garage[space] = car;
+  }
+
+  public void addCar(Car car) {
+    for(var i = 0; i < garage.length; i++) {
+      if(garage[i] == null) {
+        setCar(car, i);
+        System.out.println(String.format("%s has been added to garage space %d.", car.toString(), i));
+        return;
+      }
+    }
+    System.out.println("The garage is full.");
+  }
+
+  public void removeCar(Car car) {
+    for(var i = 0; i < garage.length; i++) {
+      if(garage[i] != null && garage[i].id == car.id) {
+        setCar(null, i);
+        System.out.println(String.format("%s has been removed from garage space %d.", car.toString(), i));
+        return;
+      }
+    }
+    System.out.println("The car was not found.");
+  }
+
+  public Boolean hasGarageSpace() {
+    for(Car car:garage) {
+      if(car == null)
+        return true;
+    }
+    return false;
   }
 
   public Integer getCarsNumber() {
