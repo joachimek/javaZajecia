@@ -6,6 +6,7 @@ import device.Device;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public abstract class Car extends Device {
 
@@ -27,9 +28,21 @@ public abstract class Car extends Device {
     return transactionHistory.get(transactionHistory.toArray().length - 1);
   }
 
+  protected Boolean isOwner(Person person) {
+    return getLastTransaction().getBuyer().getId() == person.getId();
+  }
+
+  public Boolean didSell(Person seller, Person buyer) {
+    return transactionHistory.stream().filter(t -> t.getSeller().getId() == seller.getId()).collect(Collectors.toList()).size() != 0;
+  }
+
+  public Integer countTransactions() {
+    return transactionHistory.size();
+  }
+
   public void sell(Person seller, Person buyer, Double price) {
     //error handling
-    if(!Arrays.asList(seller.getCars()).contains(this.id) || getLastTransaction().getBuyer()) {
+    if(!Arrays.asList(seller.getCars()).contains(this.id) || !isOwner(seller)) {
       System.out.println("The car does not belong to the 'seller'.");
       return;
     }

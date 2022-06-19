@@ -18,4 +18,5 @@ public class Transaction {
   public Person getBuyer() {
     return this.buyer;
   }
+  public Person getSeller() { return this.seller; }
 }

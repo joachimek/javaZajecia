@@ -41,6 +41,10 @@ public class Person {
     this.garage = new Car[garageSize];
   }
 
+  public Long getId() {
+    return this.id;
+  }
+
   public Pet getPet() {
     return this.pet;
   }
