@@ -1,11 +1,15 @@
 package device.car;
 
 import com.company.Person;
+import com.company.Transaction;
 import device.Device;
 
 import java.util.Arrays;
+import java.util.List;
 
 public abstract class Car extends Device {
+
+  private List<Transaction> transactionHistory;
 
   public Car (Long id, String brand, String model, Integer yearOfProduction) {
     super(id, brand, model, yearOfProduction);
@@ -15,9 +19,17 @@ public abstract class Car extends Device {
     System.out.println("The car has been turned on.");
   }
 
+  protected void addTransaction(Transaction transaction) {
+    transactionHistory.add(transaction);
+  }
+
+  protected Transaction getLastTransaction() {
+    return transactionHistory.get(transactionHistory.toArray().length - 1);
+  }
+
   public void sell(Person seller, Person buyer, Double price) {
     //error handling
-    if(!Arrays.asList(seller.getCars()).contains(this.id)) {
+    if(!Arrays.asList(seller.getCars()).contains(this.id) || getLastTransaction().getBuyer()) {
       System.out.println("The car does not belong to the 'seller'.");
       return;
     }
@@ -34,6 +46,7 @@ public abstract class Car extends Device {
     seller.cash -= price;
     buyer.removeCar(this);
     seller.addCar(this);
+    addTransaction(new Transaction(buyer, seller, price));
 
     System.out.println(String.format("%s has been sold by %s to %s", this.toString(), seller.toString(), price.toString()));
   }

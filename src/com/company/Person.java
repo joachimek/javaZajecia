@@ -6,10 +6,10 @@ import device.car.Car;
 import device.Phone;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 public class Person {
+  private final Long id;
   public String name;
   public String surname;
 
@@ -23,7 +23,8 @@ public class Person {
   private Double salary;
   public Double cash;
 
-  public Person (String name, String surname) {
+  public Person (Long id, String name, String surname) {
+    this.id = id;
     this.name = name;
     this.surname = surname;
     this.salary = 0.0;
@@ -31,7 +32,8 @@ public class Person {
     this.garage = new Car[1];
   }
 
-  public Person(String name, String surname, Integer garageSize) {
+  public Person(Long id, String name, String surname, Integer garageSize) {
+    this.id = id;
     this.name = name;
     this.surname = surname;
     this.salary = 0.0;
