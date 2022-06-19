@@ -14,7 +14,6 @@ public class Person {
   public String surname;
 
   private Pet pet;
-  private Car car;
   private Car[] garage;
   private Phone phone;
 
@@ -53,20 +52,12 @@ public class Person {
     this.pet = pet;
   }
 
-  public Car getCar() {
-    return this.car;
-  }
-
   public Car getCar(Integer space) {
     return this.garage[space];
   }
 
   public Car[] getCars() {
     return this.garage;
-  }
-
-  public void setCar(Car car) {
-    this.car = car;
   }
 
   protected void setCar(Car car, Integer space) {
