@@ -10,4 +10,10 @@ public class App {
     this.version = "1.0";
     this.price = 0.0;
   }
+
+  public App(String name, String version, Double price) {
+    this.name = name;
+    this.version = version;
+    this.price = price;
+  }
 }

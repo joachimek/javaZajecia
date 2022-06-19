@@ -5,6 +5,7 @@ import com.company.Person;
 
 import java.net.URL;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Phone extends Device {
   private List<App> apps;
@@ -64,5 +65,30 @@ public class Phone extends Device {
   public void installApp(URL link) {
     System.out.println(String.format("Installed %s from %s", link.getFile(), link.getHost()));
     this.apps.add(new App(link.getFile()));
+  }
+
+  public void installApp(Person buyer, App app) {
+    if(app.price < buyer.cash) {
+      System.out.println(String.format("Installed %s (version %s)", app.name, app.version));
+      this.apps.add(app);
+      return;
+    }
+    System.out.println("Not enough funds to buy this app.");
+  }
+
+  public Boolean isAppInstalled(App app) {
+    return apps.stream().filter(t -> t.name == app.name).collect(Collectors.toList()).size() != 0;
+  }
+
+  public Boolean isAppInstalled(String appName) {
+    return apps.stream().filter(t -> t.name == appName).collect(Collectors.toList()).size() != 0;
+  }
+
+  public List<App> getFreeApps() {
+    return apps.stream().filter(t -> t.price == 0.0).collect(Collectors.toList());
+  }
+
+  public Double getAppsValue() {
+    return apps.stream().map(app -> app.price).reduce(0.0, (a, b) -> a + b);
   }
 }
